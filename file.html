@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>I'm Sorry — Please Forgive Me</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'Montserrat',sans-serif;
+      background:linear-gradient(135deg,#ffe5ec,#e0f7ff);
+      display:flex;justify-content:center;align-items:center;min-height:100vh;padding:1rem;
+      overflow:hidden;
+      position:relative;
+    }
+    .card{
+      background:white;
+      border-radius:20px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.1);
+      max-width:600px;width:100%;
+      padding:2rem;
+      text-align:center;
+      z-index:10;
+      position:relative;
+    }
+    h1{
+      font-family:'Great Vibes',cursive;
+      font-size:3rem;
+      color:#b2226f;
+    }
+    p{margin:1rem 0;color:#444;font-size:1.1rem}
+
+    .buttons{margin-top:2rem;display:flex;justify-content:center;gap:1rem}
+    button{
+      padding:0.8rem 1.5rem;
+      border:none;
+      border-radius:10px;
+      font-size:1rem;
+      font-weight:600;
+      cursor:pointer;
+      transition:all 0.3s ease;
+    }
+    .yes{
+      background:linear-gradient(90deg,#ff8fab,#ff6a95);
+      color:white;
+    }
+    .yes:hover{transform:scale(1.05)}
+    .no{
+      background:#f0f0f0;color:#444;
+    }
+    .no:hover{background:#ddd}
+
+    /* Blooming flower */
+    .flower{
+      margin-top:2rem;
+      opacity:0;
+      transform:scale(0.2);
+      transition:all 1s ease;
+    }
+    .flower.show{
+      opacity:1;
+      transform:scale(1);
+    }
+    .flower svg{width:120px;height:120px}
+
+    .thankyou{
+      margin-top:1rem;
+      font-size:1.2rem;
+      color:#b2226f;
+      opacity:0;
+      transition:opacity 1s ease;
+    }
+    .thankyou.show{opacity:1}
+
+    /* Kiss animation */
+    .kiss{
+      position:absolute;
+      font-size:2.5rem;
+      animation:floatUp 3s linear forwards;
+      pointer-events:none;
+    }
+    @keyframes floatUp{
+      0%{transform:translateY(0) scale(1);opacity:1}
+      100%{transform:translateY(-150vh) scale(1.5);opacity:0}
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>I'm Sorry</h1>
+    <p>I know I hurt you, and I truly regret it. I am not gonna lie i am just a fucking idiot please i ask you to forgive me. Will you forgive me?</p>
+
+    <div class="buttons">
+      <button class="yes" onclick="celebrate()">Yes</button>
+      <button class="no" onclick="removeNo(this)">No</button>
+    </div>
+
+    <div class="flower" id="flower">
+      <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="32" cy="32" r="6" fill="#ff6a95"/>
+        <circle cx="32" cy="12" r="10" fill="#ffb6c1"/>
+        <circle cx="52" cy="32" r="10" fill="#ffb6c1"/>
+        <circle cx="32" cy="52" r="10" fill="#ffb6c1"/>
+        <circle cx="12" cy="32" r="10" fill="#ffb6c1"/>
+        <circle cx="46" cy="18" r="10" fill="#ffc0cb"/>
+        <circle cx="18" cy="18" r="10" fill="#ffc0cb"/>
+        <circle cx="46" cy="46" r="10" fill="#ffc0cb"/>
+        <circle cx="18" cy="46" r="10" fill="#ffc0cb"/>
+      </svg>
+    </div>
+
+    <div class="thankyou" id="thankyou">Thank you for forgiving me ❤️</div>
+  </div>
+
+  <!-- Smooch sound -->
+  <audio id="smoochSound">
+    <source src="https://www.soundjay.com/human/sounds/kiss-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function removeNo(btn){btn.remove();}
+
+    function celebrate(){
+      document.getElementById('flower').classList.add('show');
+      document.getElementById('thankyou').classList.add('show');
+
+      // play sound
+      const sound=document.getElementById('smoochSound');
+      sound.currentTime=0;
+      sound.play();
+
+      // create 100 kiss emojis
+      for(let i=0;i<30;i++){
+        const kiss=document.createElement("div");
+        kiss.className="kiss";
+        kiss.innerText="💋";
+        kiss.style.left=Math.random()*100+"vw";
+        kiss.style.top="100vh";
+        kiss.style.fontSize=(2+Math.random()*2)+"rem";
+        document.body.appendChild(kiss);
+
+        // remove after animation
+        kiss.addEventListener("animationend",()=>kiss.remove());
+      }
+    }
+  </script>
+</body>
+</html>
